@@ -8,6 +8,6 @@
     text-align: center;
 }
 
-.disabled {
+:disabled {
     opacity: .2;
 }
