@@ -1,53 +1,53 @@
-(function() {
-  loadOptions();
-  submitHandler();
+(function () {
+    loadOptions();
+    submitHandler();
 })();
 
 function submitHandler() {
-  var $submitButton = $('#submitButton');
+    var $submitButton = $('#submitButton');
 
-  $submitButton.on('click', function() {
-    console.log('Submit');
+    $submitButton.on('click', function () {
+        console.log('Submit');
 
-    var return_to = getQueryParam('return_to', 'pebblejs://close#');
-    document.location = return_to + encodeURIComponent(JSON.stringify(getAndStoreConfigData()));
-  });
+        var return_to = getQueryParam('return_to', 'pebblejs://close#');
+        document.location = return_to + encodeURIComponent(JSON.stringify(getAndStoreConfigData()));
+    });
 }
 
 function loadOptions() {
-  var $backgroundColorPicker = $('#backgroundColorPicker');
-  var $timeFormatCheckbox = $('#timeFormatCheckbox');
+    var $ipAddressInput = $('#ip-address-input');
+    var $numZonesInput = $('#num-zones-input');
 
-  if (localStorage.receiverAddr) {
-    //$backgroundColorPicker[0].value = localStorage.backgroundColor;
-    //$timeFormatCheckbox[0].checked = localStorage.twentyFourHourFormat === 'true';
-  }
+    if (localStorage.receiverAddr) {
+        $ipAddressInput[0].value = localStorage.receiverAddr;
+        $numZonesInput[0].value = localStorage.receiverNumZones;
+    }
 }
 
 function getAndStoreConfigData() {
-  var $backgroundColorPicker = $('#backgroundColorPicker');
-  var $timeFormatCheckbox = $('#timeFormatCheckbox');
+    var $ipAddressInput = $('#ip-address-input');
+    var $numZonesInput = $('#num-zones-input');
 
-  var options = {
-    backgroundColor: $backgroundColorPicker.val(),
-    twentyFourHourFormat: $timeFormatCheckbox[0].checked
-  };
+    var options = {
+        receiverAddr: $ipAddressInput[0].val(),
+        receiverNumZones: $numZonesInput[0].val()
+    };
 
-  localStorage.backgroundColor = options.backgroundColor;
-  localStorage.twentyFourHourFormat = options.twentyFourHourFormat;
+    localStorage.receiverAddr = options.receiverAddr;
+    localStorage.receiverNumZones = options.receiverNumZones;
 
-  console.log('Got options: ' + JSON.stringify(options));
-  return options;
+    console.log('Got options: ' + JSON.stringify(options));
+    return options;
 }
 
 function getQueryParam(variable, defaultValue) {
-  var query = location.search.substring(1);
-  var vars = query.split('&');
-  for (var i = 0; i < vars.length; i++) {
-    var pair = vars[i].split('=');
-    if (pair[0] === variable) {
-      return decodeURIComponent(pair[1]);
+    var query = location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (pair[0] === variable) {
+            return decodeURIComponent(pair[1]);
+        }
     }
-  }
-  return defaultValue || false;
+    return defaultValue || false;
 }
