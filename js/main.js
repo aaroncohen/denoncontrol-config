@@ -1,9 +1,10 @@
 (function () {
     loadOptions();
-    submitHandler();
+    setupSubmitHandler();
+    setupChangeHandler();
 })();
 
-function submitHandler() {
+function setupSubmitHandler() {
     var $submitButton = $('#submitButton');
 
     $submitButton.on('click', function () {
@@ -11,6 +12,19 @@ function submitHandler() {
 
         var return_to = getQueryParam('return_to', 'pebblejs://close#');
         document.location = return_to + encodeURIComponent(JSON.stringify(getAndStoreConfigData()));
+    });
+}
+
+function setupChangeHandler() {
+    var $ipAddressInput = $('#ip-address-input');
+    var $numZonesInput = $('#num-zones-input');
+
+    $ipAddressInput.bind('input', function() {
+        validateFields();
+    });
+
+    $numZonesInput.bind('input', function() {
+        validateFields();
     });
 }
 
@@ -38,6 +52,19 @@ function getAndStoreConfigData() {
 
     console.log('Got options: ' + JSON.stringify(options));
     return options;
+}
+
+function validateFields() {
+    var $ipAddressInput = $('#ip-address-input');
+    var $numZonesInput = $('#num-zones-input');
+
+    var $submitButton = $('#submitButton');
+
+    if ($ipAddressInput[0].checkValidity() && $numZonesInput[0].checkValidity()) {
+        $submitButton.enable();
+    } else {
+        $submitButton.disable();
+    }
 }
 
 function getQueryParam(variable, defaultValue) {
