@@ -61,9 +61,9 @@ function validateFields() {
     var $submitButton = $('#submitButton');
 
     if ($ipAddressInput[0].checkValidity() && $numZonesInput[0].checkValidity()) {
-        $submitButton.enable();
+        $submitButton.prop('disabled', false);
     } else {
-        $submitButton.disable();
+        $submitButton.prop('disabled', true);
     }
 }
 
