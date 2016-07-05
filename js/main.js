@@ -29,8 +29,8 @@ function getAndStoreConfigData() {
     var $numZonesInput = $('#num-zones-input');
 
     var options = {
-        receiverAddr: $ipAddressInput[0].val(),
-        receiverNumZones: $numZonesInput[0].val()
+        receiverAddr: $ipAddressInput.val(),
+        receiverNumZones: $numZonesInput.val()
     };
 
     localStorage.receiverAddr = options.receiverAddr;
